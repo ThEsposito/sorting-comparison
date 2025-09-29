@@ -38,9 +38,9 @@ int main(){
 
     // Grava o array ordenado pelo Insertion em out1.txt
     printf("Gravando arquivo ordenado...\n");
-    gravarArquivo("/workspaces/sorting-comparison/io/out1.txt", arr_merge);
-
-
+    gravarArquivo("/workspaces/sorting-comparison/io/out1.txt", arr_insertion);
+    
+    printf("Insertion Sort: %d passos\n\n", qtde_passos_insertion);
 
 
     // Array auxiliar para o merge sort

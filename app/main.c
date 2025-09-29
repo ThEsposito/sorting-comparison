@@ -113,7 +113,7 @@ void merge(char a[][TAM_MAX_STR], char tmp[][TAM_MAX_STR], int left, int mid, in
 
 // Função utilitária
 void copiar_arr(char destino[QTDE_PALAVRAS][TAM_MAX_STR], char origem[QTDE_PALAVRAS][TAM_MAX_STR]){
-    for(int i=0; i<100; i++){
+    for(int i=0; i<QTDE_PALAVRAS; i++){
         strcpy(destino[i], origem[i]);
     }
 }
@@ -134,15 +134,15 @@ int main(){
     copiar_arr(arr_merge, arr_insertion);
     
 
-
-
     // Ordena e conta a quantidade de passos para a execução do Insertion Sort
     printf("Ordenando com Insertion Sort...\n");
     int qtde_passos_insertion = insertion_sort(arr_insertion);
 
     // Grava o array ordenado pelo Insertion em out1.txt
     printf("Gravando arquivo ordenado...\n");
-    gravarArquivo("/workspaces/sorting-comparison/io/out1.txt", arr_merge);
+    gravarArquivo("/workspaces/sorting-comparison/io/out1.txt", arr_insertion);
+    
+    printf("Insertion Sort: %d passos\n\n", qtde_passos_insertion);
 
 
 
