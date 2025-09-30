@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#define QTDE_PALAVRAS 1000
+#define QTDE_PALAVRAS 10000
 #define TAM_MAX_STR 20
 
 void merge(char a[][TAM_MAX_STR], char tmp[][TAM_MAX_STR], int left, int mid, int right);

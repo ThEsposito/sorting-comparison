@@ -1,15 +1,14 @@
+/*---------------------------------------------
+Alunos:
+ - Theo Espósito Simões Resende  RA: 10721356
+ - Kauê Lima Rodrigues Meneses   RA: 10410594
+----------------------------------------------*/
+
 #include <stdio.h>
 #include <string.h>
 #define TAM_MAX_STR 20
-#define QTDE_PALAVRAS 1000
+#define QTDE_PALAVRAS 10000
 
-
-/*
-Esse arquivo vai ser o nosso grande cocozão, porque não sei como faz pra chamar funções de 
-outros arquivos em C.
-
-Portanto, vou jogar todas num arquivo só e foda-se
-*/
 // ENTRADA E SAÍDA ---------------------------------------------------------------------------------
 int lerArquivo(char path_entrada[50], char arr_gravacao[QTDE_PALAVRAS][TAM_MAX_STR]) {
     FILE *entrada = fopen(path_entrada, "r");
@@ -121,10 +120,10 @@ void copiar_arr(char destino[QTDE_PALAVRAS][TAM_MAX_STR], char origem[QTDE_PALAV
 
 // Bloco principal
 int main(){
-    char in[] = "/workspaces/sorting-comparison/io/in.txt";
-    char output_merge[] = "/workspaces/sorting-comparison/io/out2.txt";
-    char output_insertion[] = "/workspaces/sorting-comparison/io/out1.txt";
-
+    char in[] = "/home/theo-esposito/VSCodeProjects/sorting-comparison/io/in.txt";
+    char output_insertion[] = "/home/theo-esposito/VSCodeProjects/sorting-comparison/io/out1.txt";
+    char output_merge[] = "/home/theo-esposito/VSCodeProjects/sorting-comparison/io/out2.txt";
+    
     char arr_insertion[QTDE_PALAVRAS][TAM_MAX_STR];
     // Leitura da entrada:
     lerArquivo(in, arr_insertion);
@@ -140,11 +139,9 @@ int main(){
 
     // Grava o array ordenado pelo Insertion em out1.txt
     printf("Gravando arquivo ordenado...\n");
-    gravarArquivo("/workspaces/sorting-comparison/io/out1.txt", arr_insertion);
+    gravarArquivo(output_insertion, arr_insertion);
     
     printf("Insertion Sort: %d passos\n\n", qtde_passos_insertion);
-
-
 
 
     // Array auxiliar para o merge sort
@@ -153,7 +150,7 @@ int main(){
     printf("Ordenando com Merge Sort...\n");
     merge_sort(arr_merge, temp, QTDE_PALAVRAS);
 
-    gravarArquivo("/workspaces/sorting-comparison/io/out2.txt", arr_merge);
+    gravarArquivo(output_merge, arr_merge);
 
     return 0;
 }
