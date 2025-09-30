@@ -55,7 +55,7 @@ int gravarArquivo(char path_saida[], char arr_ordenado[QTDE_PALAVRAS][TAM_MAX_ST
 
 // A função retorna a quantidade de passos que o algoritmo levou para ser executado
 int insertion_sort(char arr[QTDE_PALAVRAS][TAM_MAX_STR]){
-    int cont = 0;
+    int cont = 0; // Contador para as repetições
     for (int i = 1; i < QTDE_PALAVRAS; ++i) {
         char chave[TAM_MAX_STR];
         strcpy(chave, arr[i]);
@@ -72,42 +72,72 @@ int insertion_sort(char arr[QTDE_PALAVRAS][TAM_MAX_STR]){
 }
 
 // Merge Sort --------------------------------------------------------------------------------------
-void merge_sort(char a[][TAM_MAX_STR], char tmp[][TAM_MAX_STR], int size){
-    msort(a, tmp, 0, size - 1);
-}
+#include <stdio.h>
+#include <stdlib.h>
 
-void msort(char a[][TAM_MAX_STR], char tmp[][TAM_MAX_STR], int left, int right){
-    if (right > left)
-    {
-        int mid = (right + left) / 2;
-        msort(a, tmp, left, mid);
-        msort(a, tmp, mid + 1, right);
-        merge(a, tmp, left, mid + 1, right);
+void merge(int arr[], int l, int m, int r){
+    
+    int i, j, k;
+    int n1 = m - l + 1;
+    int n2 = r - m;
+
+    // Cria os subarrays temporários
+    int L[n1], R[n2];
+
+    // Copia os dados para os subarrays
+    for (i = 0; i < n1; i++)
+        L[i] = arr[l + i];
+    for (j = 0; j < n2; j++)
+        R[j] = arr[m + 1 + j];
+
+    // Merge the temp arrays back into arr[l..r
+    i = 0;
+    j = 0;
+    k = l;
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            arr[k] = L[i];
+            i++;
+        }
+        else {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+
+    // Copy the remaining elements of L[],
+    // if there are any
+    while (i < n1) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+
+    // Copy the remaining elements of R[],
+    // if there are any
+    while (j < n2) {
+        arr[k] = R[j];
+        j++;
+        k++;
     }
 }
 
-void merge(char a[][TAM_MAX_STR], char tmp[][TAM_MAX_STR], int left, int mid, int right){
-    int left_end = mid - 1;
-    int tmp_pos = left;
-    int count = right - left + 1;
+// l is for left index and r is right index of the
+// sub-array of arr to be sorted
+void mergeSort(int arr[], int l, int r){
+    
+    if (l < r) {
+        int m = l + (r - l) / 2;
 
-    while (left <= left_end && mid <= right)
-    {
-        if (strcmp(a[left], a[mid]) <= 0)
-            strcpy(tmp[tmp_pos++], a[left++]);
-        else
-            strcpy(tmp[tmp_pos++], a[mid++]);
+        // Sort first and second halves
+        mergeSort(arr, l, m);
+        mergeSort(arr, m + 1, r);
+
+        merge(arr, l, m, r);
     }
-
-    while (left <= left_end)
-        strcpy(tmp[tmp_pos++], a[left++]);
-
-    while (mid <= right)
-        strcpy(tmp[tmp_pos++], a[mid++]);
-
-    for (int i = 0; i < count; i++, right--)
-        strcpy(a[right], tmp[right]);
 }
+
 //--------------------------------------------------------------------------------------------------
 
 // Função utilitária
@@ -138,7 +168,7 @@ int main(){
     int qtde_passos_insertion = insertion_sort(arr_insertion);
 
     // Grava o array ordenado pelo Insertion em out1.txt
-    printf("Gravando arquivo ordenado...\n");
+    printf("Gravando array ordenado do Insertion Sort...\n");
     gravarArquivo(output_insertion, arr_insertion);
     
     printf("Insertion Sort: %d passos\n\n", qtde_passos_insertion);
@@ -148,7 +178,9 @@ int main(){
     char temp[QTDE_PALAVRAS][TAM_MAX_STR];
     
     printf("Ordenando com Merge Sort...\n");
-    merge_sort(arr_merge, temp, QTDE_PALAVRAS);
+    merge_sort(arr_merge,0, QTDE_PALAVRAS - 1);
+
+    printf("Gravando array ordenado pelo Merge Sort no arquivo...\n");
 
     gravarArquivo(output_merge, arr_merge);
 
