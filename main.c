@@ -10,7 +10,7 @@ Alunos:
 #define QTDE_PALAVRAS 10000
 
 // ENTRADA E SAÍDA ---------------------------------------------------------------------------------
-int lerArquivo(char path_entrada[50], char arr_gravacao[QTDE_PALAVRAS][TAM_MAX_STR]) {
+int lerArquivo(char path_entrada[], char arr_gravacao[QTDE_PALAVRAS][TAM_MAX_STR]) {
     FILE *entrada = fopen(path_entrada, "r");
     if(entrada == NULL) {
         printf("Erro na abertura do arquivo de entrada! Confira o path: ");
@@ -135,13 +135,19 @@ void copiar_arr(char destino[QTDE_PALAVRAS][TAM_MAX_STR], char origem[QTDE_PALAV
 
 // Bloco principal
 int main(){
-    char in[] = "./io/in.txt";
-    char output_insertion[] = "./io/out1.txt";
-    char output_merge[] = "./io/out2.txt";
+    printf("Digite o caminho para o arquivo de entrada: ");
+    char path_entrada[200];
+    fgets(path_entrada, sizeof(path_entrada), stdin);
+
+    // remove o '\n' do final
+    path_entrada[strcspn(path_entrada, "\n")] = '\0';
+
+    char output_insertion[] = "./out1.txt";
+    char output_merge[] = "./out2.txt";
     
     char arr_insertion[QTDE_PALAVRAS][TAM_MAX_STR];
     // Leitura da entrada:
-    lerArquivo(in, arr_insertion);
+    lerArquivo(path_entrada, arr_insertion);
 
     // Como o insertion vai ordenar esse array, criei uma cópia para o merge utilizar
     char arr_merge[QTDE_PALAVRAS][TAM_MAX_STR];
