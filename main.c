@@ -71,6 +71,12 @@ int insertion_sort(char arr[QTDE_PALAVRAS][TAM_MAX_STR]){
 // Merge Sort --------------------------------------------------------------------------------------
 long contador_passos_merge = 0;
 
+
+// Protótipos para evitar warnings ao compilar
+void msort(char a[][TAM_MAX_STR], char tmp[][TAM_MAX_STR], int left, int right);
+void merge(char a[][TAM_MAX_STR], char tmp[][TAM_MAX_STR], int left, int mid, int right);
+
+
 // Função principal do merge sort
 void merge_sort(char a[][TAM_MAX_STR], char tmp[][TAM_MAX_STR], int size){
     contador_passos_merge = 0; // zera contador antes de começar
@@ -135,7 +141,7 @@ void copiar_arr(char destino[QTDE_PALAVRAS][TAM_MAX_STR], char origem[QTDE_PALAV
 
 // Bloco principal
 int main(){
-    printf("Digite o caminho para o arquivo de entrada: ");
+    printf("Digite o caminho para o arquivo de entrada (incluindo o próprio): ");
     char path_entrada[200];
     fgets(path_entrada, sizeof(path_entrada), stdin);
 
